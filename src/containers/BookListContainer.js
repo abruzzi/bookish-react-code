@@ -13,38 +13,37 @@ class BookListContainer extends Component {
       term: ''
     }
     this.filterBook = this.filterBook.bind(this)
+    this.updateBooks = this.updateBooks.bind(this)
+    this.updateError = this.updateError.bind(this)
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/books').then(res => {
-      this.setState({
-        books: res.data,
-        loading: false
-      })
-    }).catch(err => {
-      this.setState({
-        loading: false,
-        error: err
-      })
+    this.fetchBooks()
+  }
+
+  updateBooks(res) {
+    this.setState({
+      books: res.data,
+      loading: false
     })
+  }
+
+  updateError(err) {
+    this.setState({
+      loading: false,
+      error: err
+    })
+  }
+
+  fetchBooks() {
+    const {term} = this.state
+    axios.get(`http://localhost:8080/books?q=${term}`).then(this.updateBooks).catch(this.updateError)
   }
 
   filterBook(e) {
     this.setState({
       term: e.target.value
-    })
-
-    axios.get(`http://localhost:8080/books?q=${e.target.value}`).then(res => {
-      this.setState({
-        books: res.data,
-        loading: false
-      })
-    }).catch(err => {
-      this.setState({
-        loading: false,
-        error: err
-      })
-    })
+    }, this.fetchBooks)
   }
 
   render() {
