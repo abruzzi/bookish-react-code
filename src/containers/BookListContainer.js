@@ -9,8 +9,10 @@ class BookListContainer extends Component {
     this.state = {
       books: [],
       loading: true,
-      error: null
+      error: null,
+      term: ''
     }
+    this.filterBook = this.filterBook.bind(this)
   }
 
   componentDidMount() {
@@ -27,8 +29,32 @@ class BookListContainer extends Component {
     })
   }
 
+  filterBook(e) {
+    this.setState({
+      term: e.target.value
+    })
+
+    axios.get(`http://localhost:8080/books?q=${e.target.value}`).then(res => {
+      this.setState({
+        books: res.data,
+        loading: false
+      })
+    }).catch(err => {
+      this.setState({
+        loading: false,
+        error: err
+      })
+    })
+  }
+
   render() {
-    return <BookList {...this.state} />
+    return (
+      <div>
+        <input type="text" className="search" placeholder="Type to search" onChange={this.filterBook}
+               value={this.state.term}/>
+        <BookList {...this.state}/>
+      </div>
+    )
   }
 }
 
