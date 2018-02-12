@@ -1,0 +1,9 @@
+.search {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2px 4px;
+    height: 32px;
+    box-shadow: 0 0 3px limegreen;
+    border: none;
+    margin-bottom: 10px;
+}
