@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from 'axios'
+import SearchBox from './SearchBox'
 import BookList from '../components/BookList/index'
 
 class BookListContainer extends Component {
@@ -49,8 +50,7 @@ class BookListContainer extends Component {
   render() {
     return (
       <div>
-        <input type="text" className="search" placeholder="Type to search" onChange={this.filterBook}
-               value={this.state.term}/>
+        <SearchBox term={this.state.term} onChange={this.filterBook} />
         <BookList {...this.state}/>
       </div>
     )
