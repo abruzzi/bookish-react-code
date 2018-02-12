@@ -14,6 +14,16 @@ describe('BookDetail', () => {
     const wrapper = shallow(<BookDetail {...props}/>)
     expect(wrapper.find('.description').text()).toEqual("The book about how to do refactoring")
   })
+  
+  it('Shows the book name when no description was given', () => {
+    const props = {
+      book: {
+        name: "Refactoring"
+      }
+    }
+    const wrapper = shallow(<BookDetail {...props}/>)
+    expect(wrapper.find('.description').text()).toEqual("Refactoring")
+  })
 
   it('Shows book name', () => {
     const props = {
