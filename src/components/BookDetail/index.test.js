@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import BookDetail from './BookDetail'
+import BookDetail from './index'
 
 describe('BookDetail', () => {
 

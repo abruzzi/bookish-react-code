@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from 'axios'
-import BookList from './BookList'
+import BookList from '../components/BookList/index'
 
 class BookListContainer extends Component {
   constructor(props) {

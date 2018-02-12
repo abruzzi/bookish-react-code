@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./App.css";
-import BookListContainer from "./BookListContainer";
-import BookDetailContainer from './BookDetailContainer'
+import BookListContainer from "./containers/BookListContainer";
+import BookDetailContainer from './containers/BookDetailContainer'
 
 import {Route} from 'react-router-dom'
 
