@@ -1,0 +1,16 @@
+.book {
+    border: 1px solid lightgreen;
+    margin-bottom: 12px;
+    padding: 6px 8px;
+    box-shadow: 0 0 2px #ccc;
+}
+
+h2 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.view-detail {
+    color: limegreen;
+    text-decoration: none;
+}

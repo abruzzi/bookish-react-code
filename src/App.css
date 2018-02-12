@@ -1,0 +1,10 @@
+.container {
+    max-width: 720px;
+    margin: 20px auto;
+}
+
+h1 {
+    background: limegreen;
+    color: white;
+    padding: 6px 8px;
+}
