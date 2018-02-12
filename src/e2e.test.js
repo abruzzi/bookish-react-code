@@ -29,6 +29,8 @@ describe('Bookish', () => {
     })
 
     expect(books.length).toEqual(2)
+    expect(books[0]).toEqual('Refactoring')
+    expect(books[1]).toEqual('Domain-driven design')
   })
 })
 
