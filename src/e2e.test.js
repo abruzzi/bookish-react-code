@@ -48,6 +48,24 @@ describe('Bookish', () => {
     expect(books[1]).toEqual('Domain-driven design')
     expect(books[2]).toEqual('Building Micro-service')
   })
+
+  test('Goto book detail page', async () => {
+    await page.goto(`${appUrlBase}/`)
+    await page.waitForSelector('a.view-detail')
+
+    const links = await page.evaluate(() => {
+      return [...document.querySelectorAll('a.view-detail')].map(el => el.getAttribute('href'))
+    })
+
+    await Promise.all([
+      page.waitForNavigation({waitUntil: 'networkidle2'}),
+      page.goto(`${appUrlBase}${links[0]}`)
+    ])
+
+    const url = await page.evaluate('location.href')
+    expect(url).toEqual(`${appUrlBase}/books/1`)
+  })
+
 })
 
 afterAll(() => {
