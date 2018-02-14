@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import axios from 'axios'
-import SearchBox from '../components/SearchBox/index'
-import BookList from '../components/BookList/index'
+import SearchBox from '../../components/SearchBox/index'
+import BookList from '../../components/BookList/index'
 
 class BookListContainer extends Component {
   constructor(props) {

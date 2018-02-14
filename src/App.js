@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React from "react";
 import "./App.css";
-import BookListContainer from "./containers/BookListContainer";
-import BookDetailContainer from './containers/BookDetailContainer'
+import BookListContainer from "./containers/BookListContainer/"
+import BookDetailContainer from './containers/BookDetailContainer/'
 
 import {Route} from 'react-router-dom'
 
