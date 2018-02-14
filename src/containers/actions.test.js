@@ -32,7 +32,7 @@ describe('BookListContainer related actions', () => {
         { type: types.FETCH_BOOKS_PENDING},
         { type: types.FETCH_BOOKS_SUCCESS, payload: books }
       ]
-      const store = mockStore({ books: [] })
+      const store = mockStore({list: { books: [] }})
 
       return store.dispatch(fetchBooks()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
@@ -46,7 +46,7 @@ describe('BookListContainer related actions', () => {
       ]
       axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: books}))
 
-      const store = mockStore({ books: [], term: 'domain' })
+      const store = mockStore({list: { books: [], term: 'domain' }})
 
       return store.dispatch(fetchBooks('')).then(() => {
         expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain')
@@ -60,7 +60,7 @@ describe('BookListContainer related actions', () => {
         { type: types.FETCH_BOOKS_PENDING},
         { type: types.FETCH_BOOKS_FAILED, err: 'Something went wrong' }
       ]
-      const store = mockStore({ books: [] })
+      const store = mockStore({list: { books: [] }})
 
       return store.dispatch(fetchBooks()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
