@@ -1,3 +1,5 @@
+import * as types from './types'
+
 const initialState = {
   term: '',
   loading: true,
@@ -6,23 +8,23 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'PERFORM_SEARCH':
+    case types.SET_SEARCH_TERM:
       return {
         ...state,
         term: action.term
       }
-    case 'FETCH_BOOKS':
+    case types.FETCH_BOOKS_PENDING:
       return {
         ...state,
         loading: true
       }
-    case 'FETCH_BOOKS_FULFILLED':
+    case types.FETCH_BOOKS_SUCCESS:
       return {
         ...state,
         books: action.payload,
         loading: false
       }
-    case 'FETCH_BOOKS_REJECTED':
+    case types.FETCH_BOOKS_FAILED:
       return {
         ...state,
         loading: false
