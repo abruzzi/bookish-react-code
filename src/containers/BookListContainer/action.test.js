@@ -32,8 +32,27 @@ describe('BookListContainer related actions', () => {
     ]
     const store = mockStore({ books: [] })
 
-    return store.dispatch(fetchBooks('')).then(() => {
+    return store.dispatch(fetchBooks()).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+
+  it('Search data with term in state', () => {
+    const books = [
+      {id: 1, name: 'Refactoring'},
+      {id: 2, name: 'Domain-driven design'}
+    ]
+    axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: books}))
+
+    const expectedActions = [
+      { type: 'FETCH_BOOKS_PENDING'},
+      { type: 'FETCH_BOOKS_SUCCESS', payload: books }
+    ]
+    const store = mockStore({ books: [], term: 'domain' })
+
+    return store.dispatch(fetchBooks('')).then(() => {
+      expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain')
     })
   })
 
@@ -46,7 +65,7 @@ describe('BookListContainer related actions', () => {
     ]
     const store = mockStore({ books: [] })
 
-    return store.dispatch(fetchBooks('')).then(() => {
+    return store.dispatch(fetchBooks()).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
