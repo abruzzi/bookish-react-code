@@ -3,7 +3,8 @@ import * as types from './types'
 const initialState = {
   term: '',
   loading: true,
-  books: []
+  books: [],
+  error: ''
 }
 
 export default (state = initialState, action) => {
@@ -27,7 +28,8 @@ export default (state = initialState, action) => {
     case types.FETCH_BOOKS_FAILED:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: action.err
       }
     default:
       return state
