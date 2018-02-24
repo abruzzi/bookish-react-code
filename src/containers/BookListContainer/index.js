@@ -8,7 +8,7 @@ import BookList from '../../components/BookList/index'
 
 import {setSearchTerm, fetchBooks} from '../actions'
 
-class BookListContainer extends Component {
+export class BookListContainer extends Component {
   constructor(props) {
     super(props)
     this.filterBook = this.filterBook.bind(this)
