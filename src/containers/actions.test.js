@@ -1,4 +1,4 @@
-import {setSearchTerm, fetchBooks} from './actions'
+import {setSearchTerm, fetchBooks, fetchABook} from './actions'
 import * as types from './types'
 
 import configureMockStore from 'redux-mock-store'
@@ -50,6 +50,17 @@ describe('BookListContainer related actions', () => {
 
       return store.dispatch(fetchBooks('')).then(() => {
         expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain')
+      })
+    })
+
+    it('Fetch book by id', () => {
+      const book = {id: 1, name: 'Refactoring'}
+      axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: book}))
+
+      const store = mockStore({list: { books: [], term: '' }})
+
+      return store.dispatch(fetchABook(1)).then(() => {
+        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books/1')
       })
     })
 
