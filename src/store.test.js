@@ -8,7 +8,7 @@ describe('Store', () => {
     {id: 1, name: 'Refactoring'}
   ]
 
-  it('Loading books from remote', () => {
+  it('Fetch books from remote', () => {
     axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: books}))
 
     return store.dispatch(actions.fetchBooks()).then(() => {

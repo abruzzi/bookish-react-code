@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import SearchBox from '../../components/SearchBox/index'
-import BookList from '../../components/BookList/index'
+import SearchBox from '../../components/SearchBox/'
+import BookList from '../../components/BookList/'
 
 import {setSearchTerm, fetchBooks} from '../actions'
 
