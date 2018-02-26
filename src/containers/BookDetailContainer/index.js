@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import {fetchABook} from '../actions'
 import BookDetail from '../../components/BookDetail/index'
 
-class BookDetailContainer extends Component {
+export class BookDetailContainer extends Component {
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.fetchABook(id)
