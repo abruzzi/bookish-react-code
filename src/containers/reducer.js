@@ -4,7 +4,8 @@ const initialState = {
   term: '',
   loading: true,
   books: [],
-  error: ''
+  error: '',
+  current: {}
 }
 
 export default (state = initialState, action) => {
@@ -30,6 +31,11 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.err
+      }
+    case types.FETCH_BOOK_SUCCESS:
+      return {
+        ...state,
+        current: action.payload
       }
     default:
       return state

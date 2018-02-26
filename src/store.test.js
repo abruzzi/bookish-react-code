@@ -18,6 +18,15 @@ describe('Store', () => {
     })
   })
 
+  it('Feach a book from remote', () => {
+    axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: books[0]}))
+
+    return store.dispatch(actions.fetchABook(1)).then(() => {
+      const state = store.getState()
+      expect(state.list.current).toEqual(books[0])
+    })
+  })
+
   it('Perform a search', () => {
     axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: books}))
     store.dispatch(actions.setSearchTerm('domain'))
