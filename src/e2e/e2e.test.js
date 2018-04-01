@@ -75,15 +75,10 @@ describe('Bookish', () => {
   test('Show books which name contains keyword', async () => {
     await page.goto(`${appUrlBase}/`)
 
-    const input = await page.waitForSelector('input.search')
-    page.type('input.search', 'design')
-
-    await page.screenshot({path: 'search-for-design.png'});
-    await page.waitForSelector('.book .title')
-    const books = await page.evaluate(() => {
-      return [...document.querySelectorAll('.book .title')].map(el => el.innerText)
-    })
-
+    const listPage = new ListPage(page);
+    await listPage.search('design');
+    const books = await listPage.getBooks();
+    
     expect(books.length).toEqual(1)
     expect(books[0]).toEqual('Domain-driven design')
   })

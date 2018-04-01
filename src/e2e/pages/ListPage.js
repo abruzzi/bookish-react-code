@@ -19,4 +19,10 @@ export default class ListPage {
 	    })
 	    return books;
     }
+
+    async search(keyword) {
+	    const input = await this.page.waitForSelector('input.search')
+	    this.page.type('input.search', keyword)
+	    return await this.page.screenshot({path: 'search-for-design.png'});
+    }
 }
