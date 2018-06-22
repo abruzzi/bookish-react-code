@@ -24,7 +24,13 @@ describe('ReviewList', () => {
     expect(wrapper.find('.reviews-container').length).toBe(1);
     expect(wrapper.find('.review').length).toBe(2)
 
-    const firstReview = wrapper.find('.review').at(0);
+    const firstReview = wrapper.find('.review p').at(0);
     expect(firstReview.text()).toEqual('Excellent work, really impressive on the efforts you put');
+
+    const name = wrapper.find('.review .name').at(0);
+    expect(name.text()).toEqual('Juntao')
+
+    const date = wrapper.find('.review .date').at(0);
+    expect(date.text()).toEqual('2018/06/21')
   })
 })
