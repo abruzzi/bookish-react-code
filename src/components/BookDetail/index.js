@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import ReviewList from "./ReviewList/index";
 
+import './index.css'
+
 class BookDetail extends Component {
   constructor(props) {
     super(props)
@@ -33,9 +35,9 @@ class BookDetail extends Component {
     return (<div className="detail">
       <h2 className="name">{book.name}</h2>
       <div className="description">{book.description ? book.description : book.name}</div>
-      <form>
-        <input type="text" name="name" value={this.state.name} onChange={this.updateName} />
-        <textarea name="content" cols="30" rows="10" value={this.state.content} onChange={this.updateContent} />
+      <form className="review-form">
+        <input type="text" name="name" value={this.state.name} onChange={this.updateName} placeholder="Your name"/>
+        <textarea name="content" cols="30" rows="10" value={this.state.content} onChange={this.updateContent} placeholder="Write your review"/>
         <button name="submit" onClick={this.saveReview}>Submit</button>
       </form>
       {book.reviews && <ReviewList reviews={book.reviews} />}
