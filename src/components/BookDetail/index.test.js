@@ -1,6 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import BookDetail from './index'
+import ReviewList from './ReviewList'
 
 describe('BookDetail', () => {
 
@@ -36,4 +37,15 @@ describe('BookDetail', () => {
     expect(wrapper.find('.name').text()).toEqual("Refactoring")
   })
 
+  it('Shows ReviewList', () => {
+    const props = {
+      book: {
+        name: "Refactoring",
+        description: "The book about how to do refactoring",
+        reviews: []
+      }
+    }
+    const wrapper = shallow(<BookDetail {...props}/>)
+    expect(wrapper.find(ReviewList).length).toEqual(1)
+  })
 })
