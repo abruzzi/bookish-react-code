@@ -105,7 +105,7 @@ describe('Bookish', () => {
 
     await page.waitForSelector('.review')
     const reviews = await page.evaluate(() => {
-      return [...document.querySelectorAll('.review')].map(el => el.innerText)
+      return [...document.querySelectorAll('.review p')].map(el => el.innerText)
     })
 
     expect(reviews.length).toEqual(1)
