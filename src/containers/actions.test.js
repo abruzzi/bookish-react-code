@@ -65,6 +65,10 @@ describe('BookListContainer related actions', () => {
     })
 
     it('Save a review for a book', () => {
+      const config = {
+        headers: { 'Content-Type': 'application/json' }
+      }
+
       const review = {
         name: 'Juntao Qiu',
         content: 'Excellent work!'
@@ -74,7 +78,7 @@ describe('BookListContainer related actions', () => {
       const store = mockStore({list: { books: [], term: '' }})
 
       return store.dispatch(saveReview(1, review)).then(() => {
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books/1', review)
+        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books/1/reviews', JSON.stringify(review), config)
       })
     })
 

@@ -29,9 +29,13 @@ export const fetchABook = (id) => {
 }
 
 export const saveReview = (id, review) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  }
+
   return (dispatch) => {
     dispatch({type: types.SAVE_BOOK_REVIEW_PENDING})
-    return axios.post(`http://localhost:8080/books/${id}`, review).then((res) => {
+    return axios.post(`http://localhost:8080/books/${id}/reviews`, JSON.stringify(review), config).then((res) => {
       dispatch({type: types.SAVE_BOOK_REVIEW_SUCCESS, payload: res.data})
     }).catch((err) => {
       dispatch({type: types.SAVE_BOOK_REVIEW_FAILED, err: err.message})

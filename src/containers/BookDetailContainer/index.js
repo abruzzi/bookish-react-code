@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import {fetchABook} from '../actions'
+import {fetchABook, saveReview} from '../actions'
 import BookDetail from '../../components/BookDetail/index'
 
 export class BookDetailContainer extends Component {
@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchABook
+  fetchABook,
+  saveReview
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookDetailContainer)
