@@ -23,5 +23,8 @@ describe('ReviewList', () => {
     const wrapper = shallow(<ReviewList {...props}/>)
     expect(wrapper.find('.reviews-container').length).toBe(1);
     expect(wrapper.find('.review').length).toBe(2)
+
+    const firstReview = wrapper.find('.review').at(0);
+    expect(firstReview.text()).toEqual('Excellent work, really impressive on the efforts you put');
   })
 })
