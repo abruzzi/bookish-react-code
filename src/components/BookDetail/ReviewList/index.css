@@ -1,0 +1,11 @@
+.reviews-container {
+    box-sizing: border-box;
+}
+
+.review {
+    border: 1px dashed #eee;
+    padding: 10px;
+    margin: 8px 0;
+
+    font-style: italic;
+}
