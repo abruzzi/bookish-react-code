@@ -48,4 +48,18 @@ describe('BookDetail', () => {
     const wrapper = shallow(<BookDetail {...props}/>)
     expect(wrapper.find(ReviewList).length).toEqual(1)
   })
+
+  it('Shows Review Form', () => {
+    const props = {
+      book: {
+        name: "Refactoring"
+      }
+    }
+    const wrapper = shallow(<BookDetail {...props}/>)
+    expect(wrapper.find('form').length).toEqual(1)
+    expect(wrapper.find('form input[name="name"]').length).toEqual(1)
+    expect(wrapper.find('form textarea[name="content"]').length).toEqual(1)
+    expect(wrapper.find('form button[name="submit"]').length).toEqual(1)
+  })
+
 })
