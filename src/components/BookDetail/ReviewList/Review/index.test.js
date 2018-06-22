@@ -31,10 +31,13 @@ describe('Review', () => {
 
     expect(wrapper.find('button.submit').length).toEqual(0)
     expect(wrapper.find('button.edit').length).toEqual(1)
+    expect(wrapper.find('.review p').text()).toEqual('Excellent work, really impressive on the efforts you put');
 
     wrapper.find('button.edit').simulate('click');
 
     expect(wrapper.find('button.submit').length).toEqual(1)
     expect(wrapper.find('button.edit').length).toEqual(0)
+
+    expect(wrapper.find('.review textarea').props().value).toEqual('Excellent work, really impressive on the efforts you put');
   })
 })

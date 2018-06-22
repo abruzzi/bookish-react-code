@@ -4,19 +4,28 @@ class Review extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editing: false
+      editing: false,
+      content: ''
     }
   }
 
   edit = () => {
+    const { content } = this.props.review
     this.setState({
-      editing: true
+      editing: true,
+      content: content
     })
   }
 
   submit = () => {
     this.setState({
       editing: false
+    })
+  }
+
+  updateContent = (e) => {
+    this.setState({
+      content: e.target.value
     })
   }
 
@@ -27,7 +36,9 @@ class Review extends Component {
         <span className="name">{review.name}</span>
         <span className="date">{review.date}</span>
       </div>
-      {this.state.editing ? <textarea value={review.content} /> : <p>{review.content}</p>}
+      {this.state.editing ?
+        <textarea value={this.state.content} cols="30" rows="10" className="review-content" onChange={this.updateContent}/>:
+        <p>{review.content}</p>}
       {this.state.editing ?
         <button className="submit" onClick={this.submit}>Submit</button>:
         <button className="edit" onClick={this.edit}>Edit</button>}
