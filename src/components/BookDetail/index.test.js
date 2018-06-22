@@ -62,4 +62,14 @@ describe('BookDetail', () => {
     expect(wrapper.find('form button[name="submit"]').length).toEqual(1)
   })
 
+  it('Shows a delimiter between book detail and reviews', () => {
+    const props = {
+      book: {
+        name: "Refactoring"
+      }
+    }
+    const wrapper = shallow(<BookDetail {...props}/>)
+    expect(wrapper.find('h3.title').length).toEqual(1);
+    expect(wrapper.find('h3.title').text()).toEqual('Reader reviews');
+  })
 })

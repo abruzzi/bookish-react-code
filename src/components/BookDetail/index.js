@@ -52,6 +52,7 @@ class BookDetail extends Component {
       <h2 className="name">{book.name}</h2>
       <div className="description">{book.description ? book.description : book.name}</div>
 
+      <h3 className="title">Reader reviews</h3>
       {this.renderReviewList()}
       {this.renderReviewForm()}
     </div>)
