@@ -1,5 +1,4 @@
 export default class ListPage {
-    
     constructor(page) {
         this.page = page;
     }
@@ -22,7 +21,7 @@ export default class ListPage {
 
     async search(keyword) {
 	    const input = await this.page.waitForSelector('input.search')
-	    this.page.type('input.search', keyword)
+	    await this.page.type('input.search', keyword, {delay: 20})
 	    return await this.page.screenshot({path: 'search-for-design.png'});
     }
 }

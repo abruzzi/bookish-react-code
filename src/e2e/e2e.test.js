@@ -95,15 +95,15 @@ describe('Bookish', () => {
     expect(result).toEqual('Refactoring')
 
     await page.waitForSelector('input[name="name"]')
-    page.type('input[name="name"]', 'Juntao Qiu')
+    await page.type('input[name="name"]', 'Juntao Qiu', {delay: 20})
 
     await page.waitForSelector('textarea[name="content"]')
-    page.type('textarea[name="content"]', 'Excellent works!')
+    await page.type('textarea[name="content"]', 'Excellent works!', {delay: 20})
 
-    const button = await page.waitForSelector('button[name="submit"]')
-    page.click('button[name="submit"]');
+    await page.waitForSelector('button[name="submit"]')
+    await page.click('button[name="submit"]');
 
-    await page.waitForSelector('.reviews-container')
+    await page.waitForSelector('.review')
     const reviews = await page.evaluate(() => {
       return [...document.querySelectorAll('.review')].map(el => el.innerText)
     })
