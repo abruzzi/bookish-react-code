@@ -7,7 +7,7 @@ function BookDetail({book}) {
     <div className="description">{book.description ? book.description : book.name}</div>
     <form>
       <input type="text" name="name"/>
-      <textarea name="content" cols="30" rows="10"></textarea>
+      <textarea name="content" cols="30" rows="10" />
       <button name="submit">Submit</button>
     </form>
     {book.reviews && <ReviewList reviews={book.reviews} />}

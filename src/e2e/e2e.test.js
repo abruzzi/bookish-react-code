@@ -72,6 +72,46 @@ describe('Bookish', () => {
     expect(result).toEqual('Refactoring')
   })
 
+  test('Write an review for a book', async () => {
+    await page.goto(`${appUrlBase}/`)
+    await page.waitForSelector('a.view-detail')
+
+    const links = await page.evaluate(() => {
+      return [...document.querySelectorAll('a.view-detail')].map(el => el.getAttribute('href'))
+    })
+
+    await Promise.all([
+      page.waitForNavigation({waitUntil: 'networkidle2'}),
+      page.goto(`${appUrlBase}${links[0]}`)
+    ])
+
+    const url = await page.evaluate('location.href')
+    expect(url).toEqual(`${appUrlBase}/books/1`)
+
+    await page.waitForSelector('.description')
+    const result = await page.evaluate(() => {
+      return document.querySelector('.description').innerText
+    })
+    expect(result).toEqual('Refactoring')
+
+    await page.waitForSelector('input[name="name"]')
+    page.type('input[name="name"]', 'Juntao Qiu')
+
+    await page.waitForSelector('textarea[name="content"]')
+    page.type('textarea[name="content"]', 'Excellent works!')
+
+    const button = await page.waitForSelector('button[name="submit"]')
+    page.click('button[name="submit"]');
+
+    await page.waitForSelector('.reviews-container')
+    const reviews = await page.evaluate(() => {
+      return [...document.querySelectorAll('.review')].map(el => el.innerText)
+    })
+
+    expect(reviews.length).toEqual(1)
+    expect(reviews[0]).toEqual('Excellent works!');
+  })
+
   test('Show books which name contains keyword', async () => {
     await page.goto(`${appUrlBase}/`)
 
