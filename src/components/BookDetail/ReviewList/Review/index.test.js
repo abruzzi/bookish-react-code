@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import Review from './index'
+import { Review } from './index'
 
 describe('Review', () => {
 
@@ -39,5 +39,19 @@ describe('Review', () => {
     expect(wrapper.find('button.edit').length).toEqual(0)
 
     expect(wrapper.find('.review textarea').props().value).toEqual('Excellent work, really impressive on the efforts you put');
+  })
+
+  it('Submit the updates', () => {
+    const props = {
+      review: { name: 'Juntao', date: '2018/06/21', content: 'Excellent work, really impressive on the efforts you put'},
+      updateReview: jest.fn()
+    }
+
+    const wrapper = shallow(<Review {...props}/>)
+
+    wrapper.find('button.edit').simulate('click')
+    expect(wrapper.find('.review textarea').props().value).toEqual('Excellent work, really impressive on the efforts you put');
+    wrapper.find('button.submit').simulate('click')
+    expect(props.updateReview).toHaveBeenCalled()
   })
 })

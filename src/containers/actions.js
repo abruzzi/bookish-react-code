@@ -53,7 +53,7 @@ export const updateReview = (id, review) => {
     dispatch({type: types.SAVE_BOOK_REVIEW_PENDING})
     return axios.put(`http://localhost:8080/reviews/${id}`, JSON.stringify(review), config).then((res) => {
       dispatch({type: types.SAVE_BOOK_REVIEW_SUCCESS, payload: res.data})
-      dispatch(fetchABook(id));
+      dispatch(fetchABook(review.bookId));
     }).catch((err) => {
       dispatch({type: types.SAVE_BOOK_REVIEW_FAILED, err: err.message})
     })

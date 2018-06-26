@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 
-class Review extends Component {
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
+import { updateReview } from '../../../../containers/actions'
+
+export class Review extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,6 +25,11 @@ class Review extends Component {
   submit = () => {
     this.setState({
       editing: false
+    })
+    const { id, bookId, name, date } = this.props.review
+    const content = this.state.content
+    this.props.updateReview(id, {
+      bookId, name, date, content
     })
   }
 
@@ -46,4 +56,4 @@ class Review extends Component {
   }
 }
 
-export default Review
+export default connect(null, { updateReview })(Review)
