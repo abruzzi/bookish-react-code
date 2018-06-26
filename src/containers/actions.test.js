@@ -1,4 +1,4 @@
-import {setSearchTerm, fetchBooks, fetchABook, saveReview} from './actions'
+import {setSearchTerm, fetchBooks, fetchABook, saveReview, updateReview } from './actions'
 import * as types from './types'
 
 import configureMockStore from 'redux-mock-store'
@@ -79,6 +79,25 @@ describe('BookListContainer related actions', () => {
 
       return store.dispatch(saveReview(1, review)).then(() => {
         expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books/1/reviews', JSON.stringify(review), config)
+      })
+    })
+
+    it('Update a review for a book', () => {
+      const config = {
+        headers: { 'Content-Type': 'application/json' }
+      }
+
+      const review = {
+        name: 'Juntao Qiu',
+        content: 'Excellent work!'
+      }
+
+      axios.put = jest.fn().mockImplementation(() => Promise.resolve({}))
+
+      const store = mockStore({list: { books: [], term: '' }})
+
+      return store.dispatch(updateReview(1, review)).then(() => {
+        expect(axios.put).toHaveBeenCalledWith('http://localhost:8080/reviews/1', JSON.stringify(review), config)
       })
     })
 
