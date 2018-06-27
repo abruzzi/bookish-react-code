@@ -12,6 +12,7 @@ beforeAll(async () => {
 })
 
 import ListPage from './pages/ListPage'
+import DetailPage from './pages/DetailPage'
 
 describe('Bookish', () => {
   afterEach(() => {
@@ -62,14 +63,12 @@ describe('Bookish', () => {
       page.goto(`${appUrlBase}${links[0]}`)
     ])
 
-    const url = await page.evaluate('location.href')
+    const detailPage = new DetailPage(page)
+    const url = await detailPage.getUrl()
     expect(url).toEqual(`${appUrlBase}/books/1`)
 
-    await page.waitForSelector('.description')
-    const result = await page.evaluate(() => {
-      return document.querySelector('.description').innerText
-    })
-    expect(result).toEqual('Refactoring')
+    const desc = await detailPage.getDescription()
+    expect(desc).toEqual('Refactoring')
   })
 
   test('Write an review for a book', async () => {
@@ -84,15 +83,6 @@ describe('Bookish', () => {
       page.waitForNavigation({waitUntil: 'networkidle2'}),
       page.goto(`${appUrlBase}${links[0]}`)
     ])
-
-    const url = await page.evaluate('location.href')
-    expect(url).toEqual(`${appUrlBase}/books/1`)
-
-    await page.waitForSelector('.description')
-    const result = await page.evaluate(() => {
-      return document.querySelector('.description').innerText
-    })
-    expect(result).toEqual('Refactoring')
 
     await page.waitForSelector('input[name="name"]')
     await page.type('input[name="name"]', 'Juntao Qiu', {delay: 20})
