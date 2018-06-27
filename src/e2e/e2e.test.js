@@ -7,7 +7,6 @@ import ListPage from './pages/ListPage'
 import DetailPage from './pages/DetailPage'
 
 let browser
-let page
 
 beforeAll(async () => {
   browser = await puppeteer.launch({})
@@ -29,20 +28,15 @@ describe('Bookish', () => {
   })
 
   test('Heading', async () => {
-    const page = await browser.newPage()
-    await page.goto(`${APP_BASE_URL}/`)
-    
-    const listPage = new ListPage(page)
+    const listPage = new ListPage(browser)
+    await listPage.initialize()
     const heading = await listPage.getHeading()
-
     expect(heading).toEqual('Bookish');
   })
 
   test('Book List', async () => {
-    const page = await browser.newPage()
-    await page.goto(`${APP_BASE_URL}/`)
-    
-    const listPage = new ListPage(page)
+    const listPage = new ListPage(browser)
+    await listPage.initialize()
     const books = await listPage.getBooks();
     
     expect(books.length).toEqual(3)
@@ -52,20 +46,11 @@ describe('Bookish', () => {
   })
 
   test('Goto book detail page', async () => {
-    const page = await browser.newPage()
-    await page.goto(`${APP_BASE_URL}/`)
-    await page.waitForSelector('a.view-detail')
+    const listPage = new ListPage(browser)
+    await listPage.initialize()
+    await listPage.gotoDetail(0)
 
-    const links = await page.evaluate(() => {
-      return [...document.querySelectorAll('a.view-detail')].map(el => el.getAttribute('href'))
-    })
-
-    await Promise.all([
-      page.waitForNavigation({waitUntil: 'networkidle2'}),
-      page.goto(`${APP_BASE_URL}${links[0]}`)
-    ])
-
-    const detailPage = new DetailPage(page)
+    const detailPage = new DetailPage(listPage.getPage())
     const url = await detailPage.getUrl()
     expect(url).toEqual(`${APP_BASE_URL}/books/1`)
 
@@ -74,10 +59,8 @@ describe('Bookish', () => {
   })
 
   test('Write an review for a book', async () => {
-    const page = await browser.newPage()
-    await page.goto(`${APP_BASE_URL}/`)
-
-    const listPage = new ListPage(page)
+    const listPage = new ListPage(browser)
+    await listPage.initialize()
     await listPage.gotoDetail(0)
 
     const review = {
@@ -85,7 +68,7 @@ describe('Bookish', () => {
       content: 'Excellent works!'
     }
 
-    const detailPage = new DetailPage(page)
+    const detailPage = new DetailPage(listPage.getPage())
     await detailPage.addReview(review)
 
     const result = await detailPage.getReview(0)
@@ -93,10 +76,9 @@ describe('Bookish', () => {
   })
 
   test('Show books which name contains keyword', async () => {
-    const page = await browser.newPage()
-    await page.goto(`${APP_BASE_URL}/`)
-
-    const listPage = new ListPage(page);
+    const listPage = new ListPage(browser)
+    await listPage.initialize()
+    
     await listPage.search('design');
     const books = await listPage.getBooks();
     

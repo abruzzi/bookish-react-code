@@ -1,8 +1,16 @@
 import { APP_BASE_URL } from '../constants'
 
 export default class ListPage {
-    constructor(page) {
-        this.page = page;
+	constructor(browser) {
+		this.browser = browser
+	}
+    async initialize() {
+      this.page = await this.browser.newPage()
+      await this.page.goto(`${APP_BASE_URL}/`)
+		}
+
+		getPage() {
+	    return this.page
     }
 
     async getHeading() {
