@@ -3,16 +3,15 @@ import axios from 'axios'
 
 import { APP_BASE_URL } from './constants'
 
+import ListPage from './pages/ListPage'
+import DetailPage from './pages/DetailPage'
+
 let browser
 let page
 
 beforeAll(async () => {
   browser = await puppeteer.launch({})
-  page = await browser.newPage()
 })
-
-import ListPage from './pages/ListPage'
-import DetailPage from './pages/DetailPage'
 
 describe('Bookish', () => {
   afterEach(() => {
@@ -30,6 +29,7 @@ describe('Bookish', () => {
   })
 
   test('Heading', async () => {
+    const page = await browser.newPage()
     await page.goto(`${APP_BASE_URL}/`)
     
     const listPage = new ListPage(page)
@@ -39,6 +39,7 @@ describe('Bookish', () => {
   })
 
   test('Book List', async () => {
+    const page = await browser.newPage()
     await page.goto(`${APP_BASE_URL}/`)
     
     const listPage = new ListPage(page)
@@ -51,6 +52,7 @@ describe('Bookish', () => {
   })
 
   test('Goto book detail page', async () => {
+    const page = await browser.newPage()
     await page.goto(`${APP_BASE_URL}/`)
     await page.waitForSelector('a.view-detail')
 
@@ -72,6 +74,7 @@ describe('Bookish', () => {
   })
 
   test('Write an review for a book', async () => {
+    const page = await browser.newPage()
     await page.goto(`${APP_BASE_URL}/`)
 
     const listPage = new ListPage(page)
@@ -90,6 +93,7 @@ describe('Bookish', () => {
   })
 
   test('Show books which name contains keyword', async () => {
+    const page = await browser.newPage()
     await page.goto(`${APP_BASE_URL}/`)
 
     const listPage = new ListPage(page);
