@@ -84,22 +84,16 @@ describe('Bookish', () => {
       page.goto(`${appUrlBase}${links[0]}`)
     ])
 
-    await page.waitForSelector('input[name="name"]')
-    await page.type('input[name="name"]', 'Juntao Qiu', {delay: 20})
+    const review = {
+      name: 'Juntao Qiu',
+      content: 'Excellent works!'
+    }
 
-    await page.waitForSelector('textarea[name="content"]')
-    await page.type('textarea[name="content"]', 'Excellent works!', {delay: 20})
+    const detailPage = new DetailPage(page)
+    await detailPage.addReview(review)
 
-    await page.waitForSelector('button[name="submit"]')
-    await page.click('button[name="submit"]');
-
-    await page.waitForSelector('.review')
-    const reviews = await page.evaluate(() => {
-      return [...document.querySelectorAll('.review p')].map(el => el.innerText)
-    })
-
-    expect(reviews.length).toEqual(1)
-    expect(reviews[0]).toEqual('Excellent works!');
+    const result = await detailPage.getReview(0)
+    expect(result).toEqual('Excellent works!');
   })
 
   test('Show books which name contains keyword', async () => {
