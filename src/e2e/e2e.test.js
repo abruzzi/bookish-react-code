@@ -46,29 +46,22 @@ describe('Bookish', () => {
   })
 
   test('Goto book detail page', async () => {
-    const listPage = new ListPage(browser)
-    await listPage.initialize()
-    await listPage.gotoDetail(0)
-
-    const detailPage = new DetailPage(listPage.getPage())
-    const url = await detailPage.getUrl()
-    expect(url).toEqual(`${APP_BASE_URL}/books/1`)
+    const detailPage = new DetailPage(browser, 1)
+    await detailPage.initialize()
 
     const desc = await detailPage.getDescription()
     expect(desc).toEqual('Refactoring')
   })
 
   test('Write an review for a book', async () => {
-    const listPage = new ListPage(browser)
-    await listPage.initialize()
-    await listPage.gotoDetail(0)
+    const detailPage = new DetailPage(browser, 1)
+    await detailPage.initialize()
 
     const review = {
       name: 'Juntao Qiu',
       content: 'Excellent works!'
     }
 
-    const detailPage = new DetailPage(listPage.getPage())
     await detailPage.addReview(review)
 
     const result = await detailPage.getReview(0)
