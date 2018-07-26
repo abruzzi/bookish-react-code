@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import SearchBox from '../../components/SearchBox/'
 import BookList from '../../components/BookList/'
 
-import {setSearchTerm, fetchBooks} from '../actions'
+import {setSearchTerm, fetchBooks} from '../../redux/actions/actions'
 
 export class BookListContainer extends Component {
   constructor(props) {
@@ -34,10 +34,9 @@ export class BookListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.list.loading,
-  books: state.list.books,
-  error: state.list.error,
-  term: state.list.term
+  books: state.books,
+  error: state.errors.error,
+  term: state.search.term
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

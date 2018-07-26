@@ -7,11 +7,17 @@ import createHistory from 'history/createBrowserHistory'
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import list from './containers/reducer'
+import books from './redux/reducers/books'
+import detail from './redux/reducers/detail'
+import errors from './redux/reducers/errors'
+import search from './redux/reducers/search'
 
 const rootReducer = combineReducers({
   routing: routerReducer,
-  list
+  books,
+  detail,
+  errors,
+  search
 })
 
 export const history = createHistory()
@@ -22,7 +28,9 @@ const middlewares = [
   routerMiddleware(history)
 ]
 
-const composedEnhancers = compose(
+const composeWithDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const composedEnhancers = composeWithDevTools(
   applyMiddleware(...middlewares)
 )
 

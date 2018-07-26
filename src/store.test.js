@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import * as actions from './containers/actions'
+import * as actions from './redux/actions/actions'
 import store from './store'
 
 describe('Store', () => {
@@ -13,8 +13,8 @@ describe('Store', () => {
 
     return store.dispatch(actions.fetchBooks()).then(() => {
       const state = store.getState()
-      expect(state.list.books.length).toEqual(1)
-      expect(state.list.books).toEqual(books)
+      expect(state.books.length).toEqual(1)
+      expect(state.books).toEqual(books)
     })
   })
 
@@ -23,7 +23,7 @@ describe('Store', () => {
 
     return store.dispatch(actions.fetchABook(1)).then(() => {
       const state = store.getState()
-      expect(state.list.current).toEqual(books[0])
+      expect(state.detail).toEqual(books[0])
     })
   })
 
@@ -33,7 +33,7 @@ describe('Store', () => {
 
     return store.dispatch(actions.fetchBooks()).then(() => {
       const state = store.getState()
-      expect(state.list.term).toEqual('domain')
+      expect(state.search.term).toEqual('domain')
       expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain')
     })
   })

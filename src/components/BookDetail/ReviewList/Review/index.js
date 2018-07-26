@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 
-import { updateReview } from '../../../../containers/actions'
+import { updateReview } from '../../../../redux/actions/actions'
 
 export class Review extends Component {
   constructor(props) {

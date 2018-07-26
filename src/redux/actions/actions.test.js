@@ -1,5 +1,5 @@
 import {setSearchTerm, fetchBooks, fetchABook, saveReview, updateReview } from './actions'
-import * as types from './types'
+import * as types from '../types'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -14,7 +14,7 @@ describe('BookListContainer related actions', () => {
     const term = ''
     const expected = {
       type: types.SET_SEARCH_TERM,
-      term
+      payload: {term}
     }
     const action = setSearchTerm(term)
     expect(action).toEqual(expected)
@@ -32,7 +32,7 @@ describe('BookListContainer related actions', () => {
         { type: types.FETCH_BOOKS_PENDING},
         { type: types.FETCH_BOOKS_SUCCESS, payload: books }
       ]
-      const store = mockStore({list: { books: [] }})
+      const store = mockStore({books: [], search: { term: '' } })
 
       return store.dispatch(fetchBooks()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
@@ -46,7 +46,7 @@ describe('BookListContainer related actions', () => {
       ]
       axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: books}))
 
-      const store = mockStore({list: { books: [], term: 'domain' }})
+      const store = mockStore({books: [], search: {term: 'domain' }})
 
       return store.dispatch(fetchBooks('')).then(() => {
         expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain')
@@ -57,7 +57,7 @@ describe('BookListContainer related actions', () => {
       const book = {id: 1, name: 'Refactoring'}
       axios.get = jest.fn().mockImplementation(() => Promise.resolve({data: book}))
 
-      const store = mockStore({list: { books: [], term: '' }})
+      const store = mockStore({books: [], search: {term: '' }})
 
       return store.dispatch(fetchABook(1)).then(() => {
         expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books/1')
@@ -75,7 +75,7 @@ describe('BookListContainer related actions', () => {
       }
       axios.post = jest.fn().mockImplementation(() => Promise.resolve({}))
 
-      const store = mockStore({list: { books: [], term: '' }})
+      const store = mockStore({books: [], search: {term: '' }})
 
       return store.dispatch(saveReview(1, review)).then(() => {
         expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books/1/reviews', JSON.stringify(review), config)
@@ -94,7 +94,7 @@ describe('BookListContainer related actions', () => {
 
       axios.put = jest.fn().mockImplementation(() => Promise.resolve({}))
 
-      const store = mockStore({list: { books: [], term: '' }})
+      const store = mockStore({books: [], search: {term: '' }})
 
       return store.dispatch(updateReview(1, review)).then(() => {
         expect(axios.put).toHaveBeenCalledWith('http://localhost:8080/reviews/1', JSON.stringify(review), config)
@@ -106,9 +106,9 @@ describe('BookListContainer related actions', () => {
 
       const expectedActions = [
         { type: types.FETCH_BOOKS_PENDING},
-        { type: types.FETCH_BOOKS_FAILED, err: 'Something went wrong' }
+        { type: types.FETCH_BOOKS_FAILED, payload: {message: 'Something went wrong' }}
       ]
-      const store = mockStore({list: { books: [] }})
+      const store = mockStore({books: [], search: {term: '' }})
 
       return store.dispatch(fetchBooks()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
