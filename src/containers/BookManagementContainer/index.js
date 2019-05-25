@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import './index.css'
+
 class BookManagementContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +15,11 @@ class BookManagementContainer extends React.Component {
     }
   }
 
-  addAuthor = () => {
+  addAuthor = (e) => {
+    e.preventDefault();
+
     const {authors} = this.state;
+
     this.setState({
       authors: [...authors, {id: _.uniqueId('author_'), name: '', profile: ''}]
     })
@@ -45,6 +50,7 @@ class BookManagementContainer extends React.Component {
   }
 
   deleteAuthor = (id, e) => {
+    e.preventDefault();
     const {authors} = this.state;
     _.remove(authors, author => author.id === id)
     this.setState({authors});
@@ -66,11 +72,11 @@ class BookManagementContainer extends React.Component {
           authors.map(author => (<div key={author.id}>
             <input type="text" className="author-name" value={author.name} placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
             <input type="text" className="author-profile" value={author.profile} placeholder="Author Profile" onChange={(e) => this.updateAuthorProfile(author.id, e)} />
-            <button className="delete-author" disabled={authors.length <= 1} onClick={(e) => this.deleteAuthor(author.id)}>Delete</button>
+            <button className="delete-author" disabled={authors.length <= 1} onClick={(e) => this.deleteAuthor(author.id, e)}>Delete</button>
           </div>))
         }
 
-        <button className="add" onClick={() => this.addAuthor()}>Add</button>
+        <button className="add" onClick={this.addAuthor}>Add</button>
       </form>
     </div>);
   }

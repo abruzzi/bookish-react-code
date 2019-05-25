@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 
-import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory } from 'history';
 
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   search
 })
 
-export const history = createHistory()
+export const history = createBrowserHistory()
 
 const initialState = {}
 const middlewares = [
