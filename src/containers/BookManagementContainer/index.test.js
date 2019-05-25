@@ -67,4 +67,13 @@ describe('Book Management', () => {
       expect(authors[0].profile).toEqual('Technical author');
     })
   })
+
+  describe('delete button for authors', () => {
+    it('disable when only one author left', () => {
+      const wrapper = shallow(<BookManagementContainer/>);
+
+      expect(wrapper.find('button.delete-author').exists()).toBe(true);
+      expect(wrapper.find('button.delete-author').prop('disabled')).toBe(true);
+    })
+  })
 })

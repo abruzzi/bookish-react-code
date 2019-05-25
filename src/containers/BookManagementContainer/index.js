@@ -58,8 +58,9 @@ class BookManagementContainer extends React.Component {
         <h3>Authors</h3>
         {
           authors.map(author => (<div key={author.id}>
-            <input type="text" className="author-name" placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
-            <input type="text" className="author-profile" placeholder="Author Profile" onChange={(e) => this.updateAuthorProfile(author.id, e)} />
+            <input type="text" className="author-name" value={author.name} placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
+            <input type="text" className="author-profile" value={author.profile} placeholder="Author Profile" onChange={(e) => this.updateAuthorProfile(author.id, e)} />
+            <button className="delete-author" disabled={true}>Delete</button>
           </div>))
         }
 
