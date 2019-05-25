@@ -35,17 +35,10 @@ class BookManagementContainer extends React.Component {
     this.setState({ description })
   }
 
-  updateAuthorName = (id, e) => {
+  updateAuthor = (id, e, key) => {
     const {authors} = this.state;
     const author = authors.find(author => author.id === id);
-    author.name = e.target.value;
-    this.setState({authors});
-  }
-
-  updateAuthorProfile = (id, e) => {
-    const {authors} = this.state;
-    const author = authors.find(author => author.id === id);
-    author.profile = e.target.value;
+    author[key] = e.target.value;
     this.setState({authors});
   }
 
@@ -71,8 +64,8 @@ class BookManagementContainer extends React.Component {
         <button className="add" onClick={this.addAuthor}>Add</button>
         {
           authors.map(author => (<div key={author.id}>
-            <input type="text" className="author-name" value={author.name} placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
-            <input type="text" className="author-profile" value={author.profile} placeholder="Author Profile" onChange={(e) => this.updateAuthorProfile(author.id, e)} />
+            <input type="text" className="author-name" value={author.name} placeholder="Author Name" onChange={(e) => this.updateAuthor(author.id, e, 'name')} />
+            <input type="text" className="author-profile" value={author.profile} placeholder="Author Profile" onChange={(e) => this.updateAuthor(author.id, e, 'profile')} />
             <button className="delete-author" disabled={authors.length <= 1} onClick={(e) => this.deleteAuthor(author.id, e)}>Delete</button>
           </div>))
         }
