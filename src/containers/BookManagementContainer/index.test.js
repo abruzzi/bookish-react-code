@@ -24,7 +24,7 @@ describe('Book Management', () => {
     const button = wrapper.find('button.add')
 
     expect(button.exists()).toBe(true);
-    button.simulate('click');
+    button.simulate('click', {preventDefault: jest.fn()});
 
     expect(wrapper.find('input[type="text"].author-name').length).toBe(2);
   })
@@ -98,7 +98,7 @@ describe('Book Management', () => {
 
       expect(wrapper.find('button.delete-author').length).toBe(2);
 
-      wrapper.find('button.delete-author').at(0).simulate('click');
+      wrapper.find('button.delete-author').at(0).simulate('click', {preventDefault: jest.fn()});
       expect(wrapper.find('button.delete-author').length).toBe(1);
     })
   })

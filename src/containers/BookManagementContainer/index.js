@@ -68,6 +68,7 @@ class BookManagementContainer extends React.Component {
         <input type="text" className="description" value={this.state.description} placeholder="Book Description" onChange={this.updateBookDescription} />
 
         <h3>Authors</h3>
+        <button className="add" onClick={this.addAuthor}>Add</button>
         {
           authors.map(author => (<div key={author.id}>
             <input type="text" className="author-name" value={author.name} placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
@@ -76,7 +77,6 @@ class BookManagementContainer extends React.Component {
           </div>))
         }
 
-        <button className="add" onClick={this.addAuthor}>Add</button>
       </form>
     </div>);
   }
