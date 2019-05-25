@@ -47,4 +47,24 @@ describe('Book Management', () => {
       expect(wrapper.state().description).toEqual('A classic foundation of Domain Driven Design');
     })
   })
+
+  describe('editing authors', () => {
+    it('editing name', () => {
+      const wrapper = shallow(<BookManagementContainer/>);
+      const authorName = wrapper.find('input[type="text"].author-name')
+      authorName.simulate('change', {target: {value: 'Juntao Qiu'}})
+
+      const {authors} = wrapper.state();
+      expect(authors[0].name).toEqual('Juntao Qiu');
+    })
+
+    it('editing profile', () => {
+      const wrapper = shallow(<BookManagementContainer/>);
+      const authorProfile = wrapper.find('input[type="text"].author-profile')
+      authorProfile.simulate('change', {target: {value: 'Technical author'}})
+
+      const {authors} = wrapper.state();
+      expect(authors[0].profile).toEqual('Technical author');
+    })
+  })
 })

@@ -5,8 +5,8 @@ class BookManagementContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
-      description: null,
+      name: '',
+      description: '',
       authors: [
         {id: _.uniqueId('author_'), name: '', profile: ''}
       ]
@@ -30,6 +30,20 @@ class BookManagementContainer extends React.Component {
     this.setState({ description })
   }
 
+  updateAuthorName = (id, e) => {
+    const {authors} = this.state;
+    const author = authors.find(author => author.id === id);
+    author.name = e.target.value;
+    this.setState({authors});
+  }
+
+  updateAuthorProfile = (id, e) => {
+    const {authors} = this.state;
+    const author = authors.find(author => author.id === id);
+    author.profile = e.target.value;
+    this.setState({authors});
+  }
+
   render() {
     const {authors} = this.state;
 
@@ -38,14 +52,14 @@ class BookManagementContainer extends React.Component {
         <h2>Book Management</h2>
 
         <h3>Basic information</h3>
-        <input type="text" className="name" placeholder="Book Name" onChange={this.updateBookName} />
-        <input type="text" className="description" placeholder="Book Description" onChange={this.updateBookDescription} />
+        <input type="text" className="name" value={this.state.name} placeholder="Book Name" onChange={this.updateBookName} />
+        <input type="text" className="description" value={this.state.description} placeholder="Book Description" onChange={this.updateBookDescription} />
 
         <h3>Authors</h3>
         {
           authors.map(author => (<div key={author.id}>
-            <input type="text" className="author-name" placeholder="Author Name"/>
-            <input type="text" className="author-profile" placeholder="Author Profile"/>
+            <input type="text" className="author-name" placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
+            <input type="text" className="author-profile" placeholder="Author Profile" onChange={(e) => this.updateAuthorProfile(author.id, e)} />
           </div>))
         }
 
