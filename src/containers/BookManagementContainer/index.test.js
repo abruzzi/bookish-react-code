@@ -29,11 +29,22 @@ describe('Book Management', () => {
     expect(wrapper.find('input[type="text"].author-name').length).toBe(2);
   })
 
-  it('editing details', () => {
-    const wrapper = shallow(<BookManagementContainer/>);
-    const nameInput = wrapper.find('input[type="text"].name');
+  describe('edting detials', () => {
 
-    nameInput.simulate('change', {target: {value: 'Domain Driven Design'}})
-    expect(wrapper.state().name).toEqual('Domain Driven Design');
+    it('editing name', () => {
+      const wrapper = shallow(<BookManagementContainer/>);
+      const nameInput = wrapper.find('input[type="text"].name');
+
+      nameInput.simulate('change', {target: {value: 'Domain Driven Design'}})
+      expect(wrapper.state().name).toEqual('Domain Driven Design');
+    })
+
+    it('editing description', () => {
+      const wrapper = shallow(<BookManagementContainer/>);
+      const descriptionInput = wrapper.find('input[type="text"].description');
+
+      descriptionInput.simulate('change', {target: {value: 'A classic foundation of Domain Driven Design'}});
+      expect(wrapper.state().description).toEqual('A classic foundation of Domain Driven Design');
+    })
   })
 })

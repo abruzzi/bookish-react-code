@@ -6,6 +6,7 @@ class BookManagementContainer extends React.Component {
     super(props);
     this.state = {
       name: null,
+      description: null,
       authors: [
         {id: _.uniqueId('author_'), name: '', profile: ''}
       ]
@@ -24,15 +25,21 @@ class BookManagementContainer extends React.Component {
     this.setState({ name })
   }
 
+  updateBookDescription = (e) => {
+    const description = e.target.value;
+    this.setState({ description })
+  }
+
   render() {
     const {authors} = this.state;
 
     return (<div>
       <form className="book-detail">
         <h2>Book Management</h2>
+
         <h3>Basic information</h3>
         <input type="text" className="name" placeholder="Book Name" onChange={this.updateBookName} />
-        <input type="text" className="description" placeholder="Book Description"/>
+        <input type="text" className="description" placeholder="Book Description" onChange={this.updateBookDescription} />
 
         <h3>Authors</h3>
         {
