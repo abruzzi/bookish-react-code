@@ -18,4 +18,14 @@ describe('Book Management', () => {
     expect(wrapper.find('input[type="text"].author-name').exists()).toBe(true);
     expect(wrapper.find('input[type="text"].author-profile').exists()).toBe(true);
   })
+
+  it('add more authors', () => {
+    const wrapper = shallow(<BookManagementContainer/>);
+    const button = wrapper.find('button.add')
+
+    expect(button.exists()).toBe(true);
+    button.simulate('click');
+
+    expect(wrapper.find('input[type="text"].author-name').length).toBe(2);
+  })
 })
