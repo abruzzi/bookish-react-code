@@ -4,6 +4,7 @@ import BookListContainer from "./containers/BookListContainer/"
 import BookDetailContainer from './containers/BookDetailContainer/'
 
 import {Route} from 'react-router-dom'
+import BookManagementContainer from "./containers/BookManagementContainer";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <main>
         <Route exact path="/" component={BookListContainer} />
         <Route path="/books/:id" component={BookDetailContainer} />
+        <Route path="/books-management" component={BookManagementContainer} />
       </main>
     </div>
   )
