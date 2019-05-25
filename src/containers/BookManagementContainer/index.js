@@ -44,6 +44,12 @@ class BookManagementContainer extends React.Component {
     this.setState({authors});
   }
 
+  deleteAuthor = (id, e) => {
+    const {authors} = this.state;
+    _.remove(authors, author => author.id === id)
+    this.setState({authors});
+  }
+
   render() {
     const {authors} = this.state;
 
@@ -60,7 +66,7 @@ class BookManagementContainer extends React.Component {
           authors.map(author => (<div key={author.id}>
             <input type="text" className="author-name" value={author.name} placeholder="Author Name" onChange={(e) => this.updateAuthorName(author.id, e)} />
             <input type="text" className="author-profile" value={author.profile} placeholder="Author Profile" onChange={(e) => this.updateAuthorProfile(author.id, e)} />
-            <button className="delete-author" disabled={authors.length <= 1}>Delete</button>
+            <button className="delete-author" disabled={authors.length <= 1} onClick={(e) => this.deleteAuthor(author.id)}>Delete</button>
           </div>))
         }
 

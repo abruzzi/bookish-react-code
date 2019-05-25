@@ -88,5 +88,18 @@ describe('Book Management', () => {
       expect(wrapper.find('button.delete-author').at(0).prop('disabled')).toBe(false);
       expect(wrapper.find('button.delete-author').at(1).prop('disabled')).toBe(false);
     })
+
+    it('delete when it clicked', () => {
+      const wrapper = shallow(<BookManagementContainer/>);
+      wrapper.setState({authors: [
+          {id: 1, name: '', profile: ''},
+          {id: 2, name: '', profile: ''}
+        ]});
+
+      expect(wrapper.find('button.delete-author').length).toBe(2);
+
+      wrapper.find('button.delete-author').at(0).simulate('click');
+      expect(wrapper.find('button.delete-author').length).toBe(1);
+    })
   })
 })
