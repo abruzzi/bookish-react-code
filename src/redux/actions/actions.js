@@ -44,6 +44,21 @@ export const saveReview = (id, review) => {
   }
 }
 
+export const saveBookInfo = (book) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  }
+
+  return (dispatch) => {
+    dispatch({type: types.SAVE_BOOK_PENDING})
+    return axios.post(`http://localhost:8080/books`, JSON.stringify(book), config).then((res) => {
+      dispatch({type: types.SAVE_BOOK_SUCCESS, payload: res.data})
+    }).catch((err) => {
+      dispatch({type: types.SAVE_BOOK_FAILED, payload: {message: err.message}})
+    })
+  }
+}
+
 export const updateReview = (id, review) => {
   const config = {
     headers: { 'Content-Type': 'application/json' }

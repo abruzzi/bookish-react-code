@@ -1,4 +1,4 @@
-import {setSearchTerm, fetchBooks, fetchABook, saveReview, updateReview } from './actions'
+import {setSearchTerm, fetchBooks, fetchABook, saveReview, updateReview, saveBookInfo } from './actions'
 import * as types from '../types'
 
 import configureMockStore from 'redux-mock-store'
@@ -112,6 +112,27 @@ describe('BookListContainer related actions', () => {
 
       return store.dispatch(fetchBooks()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
+      })
+    })
+
+    it('Save a book', () => {
+      const config = {
+        headers: { 'Content-Type': 'application/json' }
+      };
+
+      const book = {
+        name: 'Acceptance Test Driven Development with React',
+        description: 'This book describes how to apply the Acceptance Test Driven Development',
+        authors: [
+          {id: 1, name: 'Juntao Qiu', profile: 'A Web Application Developer @ ThoughtWorks'},
+        ]}
+
+      axios.post = jest.fn().mockImplementation(() => Promise.resolve({}))
+
+      const store = mockStore({books: [], search: {term: '' }})
+
+      return store.dispatch(saveBookInfo(book)).then(() => {
+        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books', JSON.stringify(book), config)
       })
     })
   })
