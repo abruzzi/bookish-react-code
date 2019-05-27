@@ -102,4 +102,9 @@ describe('Book Management', () => {
       expect(wrapper.find('button.delete-author').length).toBe(1);
     })
   })
+
+  it('save book info', () => {
+    const wrapper = shallow(<BookManagementContainer/>);
+    expect(wrapper.find('button.save-book').exists()).toBe(true);
+  })
 })

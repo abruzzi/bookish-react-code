@@ -70,6 +70,7 @@ class BookManagementContainer extends React.Component {
           </div>))
         }
 
+        <button className="save-book">Save</button>
       </form>
     </div>);
   }
