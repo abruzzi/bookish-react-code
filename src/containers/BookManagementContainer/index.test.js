@@ -1,5 +1,5 @@
 import React from 'react';
-import BookManagementContainer from "./index";
+import {BookManagementContainer} from "./index";
 import {shallow} from "enzyme";
 
 describe('Book Management', () => {

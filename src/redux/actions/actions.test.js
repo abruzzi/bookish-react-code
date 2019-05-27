@@ -1,4 +1,4 @@
-import {setSearchTerm, fetchBooks, fetchABook, saveReview, updateReview, saveBookInfo } from './actions'
+import {setSearchTerm, fetchBooks, fetchABook, saveReview, updateReview, saveBook } from './actions'
 import * as types from '../types'
 
 import configureMockStore from 'redux-mock-store'
@@ -131,7 +131,7 @@ describe('BookListContainer related actions', () => {
 
       const store = mockStore({books: [], search: {term: '' }})
 
-      return store.dispatch(saveBookInfo(book)).then(() => {
+      return store.dispatch(saveBook(book)).then(() => {
         expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books', JSON.stringify(book), config)
       })
     })

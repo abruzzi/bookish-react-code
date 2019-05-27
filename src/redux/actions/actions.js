@@ -44,7 +44,7 @@ export const saveReview = (id, review) => {
   }
 }
 
-export const saveBookInfo = (book) => {
+export const saveBook = (book) => {
   const config = {
     headers: { 'Content-Type': 'application/json' }
   }

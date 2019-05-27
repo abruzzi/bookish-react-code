@@ -2,8 +2,10 @@ import React from 'react';
 import _ from 'lodash';
 
 import './index.css'
+import {connect} from "react-redux";
+import {saveBook} from "../../redux/actions/actions";
 
-class BookManagementContainer extends React.Component {
+export class BookManagementContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +51,8 @@ class BookManagementContainer extends React.Component {
     this.setState({authors});
   }
 
-  saveBookInfo = () => {
+  saveBookInfo = (e) => {
+    e.preventDefault();
     this.props.saveBook({
       ...this.state
     });
@@ -76,10 +79,10 @@ class BookManagementContainer extends React.Component {
           </div>))
         }
 
-        <button className="save-book" onClick={() => this.saveBookInfo()}>Save</button>
+        <button className="save-book" onClick={(e) => this.saveBookInfo(e)}>Save</button>
       </form>
     </div>);
   }
 }
 
-export default BookManagementContainer;
+export default connect(null, {saveBook})(BookManagementContainer);
