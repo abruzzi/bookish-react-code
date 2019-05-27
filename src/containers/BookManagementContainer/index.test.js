@@ -104,7 +104,22 @@ describe('Book Management', () => {
   })
 
   it('save book info', () => {
-    const wrapper = shallow(<BookManagementContainer/>);
+    const props = {
+      saveBook: jest.fn()
+    }
+
+    const state = {
+      name: 'Acceptance Test Driven Development with React',
+      description: 'This book describes how to apply the Acceptance Test Driven Development',
+      authors: [
+        {id: 1, name: 'Juntao Qiu', profile: 'A Web Application Developer @ ThoughtWorks'},
+      ]};
+
+    const wrapper = shallow(<BookManagementContainer {...props} />);
+    wrapper.setState(state);
+
     expect(wrapper.find('button.save-book').exists()).toBe(true);
+    wrapper.find('button.save-book').simulate('click', {preventDefault: jest.fn()});
+    expect(props.saveBook).toHaveBeenCalledWith(state);
   })
 })

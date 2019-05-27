@@ -49,6 +49,12 @@ class BookManagementContainer extends React.Component {
     this.setState({authors});
   }
 
+  saveBookInfo = () => {
+    this.props.saveBook({
+      ...this.state
+    });
+  }
+
   render() {
     const {authors} = this.state;
 
@@ -70,7 +76,7 @@ class BookManagementContainer extends React.Component {
           </div>))
         }
 
-        <button className="save-book">Save</button>
+        <button className="save-book" onClick={() => this.saveBookInfo()}>Save</button>
       </form>
     </div>);
   }
